@@ -3,7 +3,7 @@
 
 body {
     background-color: rgb(238, 249, 191);
-    
+
 }
 
 .body-container {
@@ -13,11 +13,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: blue;
+
 }
 
 .body-container h1 {
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 56px;
@@ -27,32 +27,49 @@ body {
     margin-top: 40px;
     margin-bottom: 47px;
 }
+
 .deck {
-    width: 80%;
+    max-width: 1057px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: black;
+    position: relative;
 }
+
 .card {
+    box-sizing: border-box;
     width: 117px;
     height: 146px;
     background: #A7E9AF;
     border: 1px solid #99CEA8;
-    border-radius: 5px;    
+    border-radius: 5px;
     margin-right: 17px;
     margin-left: 17px;
     margin-bottom: 34px;
     display: flex;
     flex-direction: center;
     align-items: center;
-    
+
 }
 
 img {
     width: 100px;
     height: 100px;
-    margin-left:10px;
+    margin-left: 10px;
     margin-right: 7px;
+}
+
+.frontside,
+.backside {
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    margin-right: 7px;
+    position: absolute;
+    
+}
+
+.hide {
+    display: none;
 }
