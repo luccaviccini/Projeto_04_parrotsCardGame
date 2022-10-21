@@ -27,7 +27,7 @@ body {
     margin-top: 40px;
     margin-bottom: 47px;
 }
-.div-cartas {
+.deck {
     width: 80%;
     display: flex;
     justify-content: center;
@@ -35,7 +35,7 @@ body {
     flex-wrap: wrap;
     background-color: black;
 }
-.carta {
+.card {
     width: 117px;
     height: 146px;
     background: #A7E9AF;
