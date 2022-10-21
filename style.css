@@ -41,7 +41,9 @@ body {
     background: #A7E9AF;
     border: 1px solid #99CEA8;
     border-radius: 5px;    
-    margin-right: 34px;
+    margin-right: 17px;
+    margin-left: 17px;
+    margin-bottom: 34px;
     display: flex;
     flex-direction: center;
     align-items: center;
