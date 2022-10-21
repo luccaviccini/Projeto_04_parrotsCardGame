@@ -20,7 +20,20 @@ function checkConditions(){
 }
 
 function addCards(nCards){
-    let deck = document.querySelector(".deck");
+    const deck = document.querySelector(".deck");
+    if (nCards == 4 || nCards == 8 || nCards == 12){
+        deck.style.width = "40%";
+    }
+    if (nCards == 10){
+        deck.style.width = "50%";
+    }
+    if (nCards == 6){
+        deck.style.width = "30%";
+    }
+    if (nCards == 14){
+        deck.style.width = "70%";
+    }
+
     for(let i = 0; i < nCards; i++){
         const card = document.createElement("div");
         card.classList.add("card");
