@@ -26,42 +26,45 @@ function addCards(nCards){
     cardsLayout(nCards)
 
     for(let i = 0; i < nCards; i++){
-        // create card element
-        const card = document.createElement("div");
+        // create card, front and back side
+        let card = document.createElement("div");
+        let backside = document.createElement("div");
+        let frontside = document.createElement("div");
+
+        // adding classes to each element
         card.classList.add("card"); 
-        //creating image1
-        let image1 = document.createElement("img");
-        image1.src = backImage_src;
-        image1.classList.add("backside");
-        card.appendChild(image1); 
-        //creating image2
-        let image2 = document.createElement("img");
-        image2.src = "./images/dog.png";
-        image2.classList.add("frontside","hide");
-        card.appendChild(image2);  
+        backside.classList.add("backside");
+        frontside.classList.add("frontside");
+        // adding images to back
+        backside.appendChild(document.createElement("img"));
+        // adding source to back
+        backside.querySelector("img").src = backImage_src;
+
+
+        // appending front and back side to card element
+        card.appendChild(frontside);
+        card.appendChild(backside);
+        // adding onclick to card element
         card.onclick = function() { turnCard(this); };
+        // adding card to deck
         deck.appendChild(card);
+
     }
 }
 
 function cardsLayout(nCards){
  
-    if (nCards == 4 || nCards == 8 || nCards == 12){
-        deck.style.maxWidth = "604px";
-    }
-    if (nCards == 10){
-        deck.style.maxWidth = "755px";
-    }
-    if (nCards == 6){
-        deck.style.maxWidth = "453px";
-    }
-    if (nCards == 14){
-        deck.style.maxWidth = "1057px";
-    }
+    if (nCards == 4 || nCards == 8 || nCards == 12)
+    {deck.style.maxWidth = "604px";}
+    if (nCards == 10){deck.style.maxWidth = "755px";}
+    if (nCards == 6){deck.style.maxWidth = "453px";}
+    if (nCards == 14){deck.style.maxWidth = "1057px";}
+    
 }
 
 function turnCard(card){
-    let card2Turn = card;
-    card2Turn.querySelector(".backside").classList.toggle("hide");
-    card2Turn.querySelector(".frontside").classList.toggle("hide");
+    let frontside = card.querySelector(".frontside");
+    let backside = card.querySelector(".backside");
+    frontside.classList.toggle("frontside-turn");
+    backside.classList.toggle("backside-turn");
 }
