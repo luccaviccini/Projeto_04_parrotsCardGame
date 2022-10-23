@@ -13,7 +13,7 @@ const frontImageSrc = [
 let frontImageSrcShuffled = [];
 let moves = 0;
 let time = 0;
-
+let setIntervalID;
 // prompting the user for the number of cards
 let nCards = Number(prompt("Com quantas cartas você quer jogar? Escolha um número par entre 4 e 14!"));
 startTime();
@@ -80,15 +80,20 @@ function turnCard(card){
     let cardsList = document.querySelectorAll(".card");
     let frontside = card.querySelector(".frontside");
     let backside = card.querySelector(".backside");
+    
     //toggling turn cards    
     frontside.classList.add("frontside-turn");
     backside.classList.add("backside-turn");
     //adding selected class to card
     card.classList.toggle("selected");
+    card.onclick = null;
     //checking if there are two cards selected
-    if(document.querySelectorAll(".selected").length == 2){    
-        
-        
+    if(document.querySelectorAll(".selected").length == 2){
+        cardsList.forEach(card => {
+            if(!card.classList.contains("selected")){
+                card.onclick = null;
+            }}); 
+              
         
 
         //checking if the two cards are the same
@@ -106,6 +111,13 @@ function turnCard(card){
             if(card.classList.contains("matched")){
                 card.onclick = null;
             }});
+             
+            cardsList.forEach(card => { 
+                if(!card.classList.contains("matched")){
+                    card.onclick = function() { turnCard(this); }}});
+
+            // disable onclick event for all other cards
+            
 
             //checking if all cards are matched
             if(document.querySelectorAll(".matched").length == nCards){
@@ -162,12 +174,15 @@ function unturnCard() {
     cardsList.forEach(card => { 
         if(!card.classList.contains("matched")){
             card.onclick = function() { turnCard(this); }}});
+    cardsList.forEach(card => { 
+        if(!card.classList.contains("selected")){
+            card.onclick = function() { turnCard(this); }}});
         
 }
 
 function startTime() {
 
-    setInterval(function() {
+    setIntervalID = setInterval(function() {
         // incrementing time
         time++;
         // updating time on screen
@@ -176,5 +191,5 @@ function startTime() {
 }
 
 function stopTime() {
-    clearInterval(time);
+    clearInterval(setIntervalID);
 }
