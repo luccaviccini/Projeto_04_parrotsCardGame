@@ -10,10 +10,13 @@ const frontImageSrc = [
     "./images/unicornparrot.gif",
     "./images/fiestaparrot.gif"
 ]
-// array to store 
 let frontImageSrcShuffled = [];
+let moves = 0;
+let time = 0;
+
 // prompting the user for the number of cards
-let nCards = Number(prompt("How many cards do you want to play with? Type an even number between 4 and 14"));
+let nCards = Number(prompt("Com quantas cartas você quer jogar? Escolha um número par entre 4 e 14!"));
+startTime();
 // check if the number of cards is even
 checkConditions();
 //add cards
@@ -71,6 +74,8 @@ function cardsLayout(nCards){
 }
 
 function turnCard(card){
+    // adding moves counter
+    moves++;
     // creating array to store cards
     let cardsList = document.querySelectorAll(".card");
     let frontside = card.querySelector(".frontside");
@@ -82,7 +87,7 @@ function turnCard(card){
     card.classList.toggle("selected");
     //checking if there are two cards selected
     if(document.querySelectorAll(".selected").length == 2){    
-
+        
         
         
 
@@ -104,7 +109,7 @@ function turnCard(card){
 
             //checking if all cards are matched
             if(document.querySelectorAll(".matched").length == nCards){
-                setTimeout(youWon, 100);
+                setTimeout(youWon, 800);
             }
             
             
@@ -132,7 +137,12 @@ function randomCard() {
 
 // you won functino to be called when all cards are matched
 function youWon(){
-    alert("YOU WON");
+    stopTime();
+    alert(`Parabéns! Você ganhou em ${moves} jogadas! E seu tempo foi de ${time} segundos!`);
+    let restart = prompt("Gostaria de reinicar a partida?");
+    if(restart === "sim"){
+        document.location.reload();
+    }
 }   
 
 function unturnCard() {
@@ -153,9 +163,18 @@ function unturnCard() {
         if(!card.classList.contains("matched")){
             card.onclick = function() { turnCard(this); }}});
         
-    
-    
-    
-    
-    
+}
+
+function startTime() {
+
+    setInterval(function() {
+        // incrementing time
+        time++;
+        // updating time on screen
+        document.querySelector(".time").innerHTML = time;
+    }, 1000); 
+}
+
+function stopTime() {
+    clearInterval(time);
 }
