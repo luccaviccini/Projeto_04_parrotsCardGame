@@ -26,6 +26,7 @@ body {
     color: #75B79E;
     margin-top: 40px;
     margin-bottom: 47px;
+    text-align: center;
 }
 
 .deck {
@@ -46,9 +47,7 @@ body {
 
 }
 
-.card:hover {
-    transform: scale(1.1);
-}
+
 
 
 .frontside, .backside {
@@ -98,8 +97,13 @@ img {
     margin-right: 7px;
 }
 
+.wrong {
+    background-color: red;
+}
+
 .selected {
     border: 5px solid rgb(208, 182, 35);
+    transform: scale(1.1);
 }
 
 .matched {

@@ -76,13 +76,16 @@ function turnCard(card){
     let frontside = card.querySelector(".frontside");
     let backside = card.querySelector(".backside");
     //toggling turn cards    
-    frontside.classList.toggle("frontside-turn");
-    backside.classList.toggle("backside-turn");
+    frontside.classList.add("frontside-turn");
+    backside.classList.add("backside-turn");
     //adding selected class to card
     card.classList.toggle("selected");
     //checking if there are two cards selected
     if(document.querySelectorAll(".selected").length == 2){    
-        console.log("two cards selected");
+
+        
+        
+
         //checking if the two cards are the same
         if(document.querySelectorAll(".selected")[0].querySelector(".frontside").querySelector("img").src == document.querySelectorAll(".selected")[1].querySelector(".frontside").querySelector("img").src){
             console.log("same cards");
@@ -90,20 +93,28 @@ function turnCard(card){
             document.querySelectorAll(".selected")[0].classList.add("matched");
             document.querySelectorAll(".selected")[1].classList.add("matched");
             //removing selected class from cards
-             for(let i = 0; i < cardsList.length; i++){
-                cardsList[i].classList.remove("selected");
-            }
+            document.querySelectorAll(".selected")[1].classList.remove("selected");
+            document.querySelectorAll(".selected")[0].classList.remove("selected");
+
+            //disable onclick event for all other cards that dont have matched class
+            cardsList.forEach(card => {
+            if(card.classList.contains("matched")){
+                card.onclick = null;
+            }});
+
             //checking if all cards are matched
             if(document.querySelectorAll(".matched").length == nCards){
                 setTimeout(youWon, 100);
             }
-
-        }
-        else{
-            console.log("different cards");
+            
             
         }
+        else{
+            setTimeout(function() {unturnCard()}, 1000);            
+        }
     }
+    
+    // adding onclick to card element
     
     
 }
@@ -123,3 +134,28 @@ function randomCard() {
 function youWon(){
     alert("YOU WON");
 }   
+
+function unturnCard() {
+    // removing class to unturn cards
+    document.querySelectorAll(".selected .frontside")[1].classList.remove("frontside-turn");
+    document.querySelectorAll(".selected .backside")[1].classList.remove("backside-turn");
+    document.querySelectorAll(".selected .frontside")[0].classList.remove("frontside-turn");
+    document.querySelectorAll(".selected .backside")[0].classList.remove("backside-turn");
+
+    //removing selected class from cards
+    document.querySelectorAll(".selected")[1].classList.remove("selected");
+    document.querySelectorAll(".selected")[0].classList.remove("selected");
+
+    // enabling onclick for all cards
+    let cardsList = document.querySelectorAll(".card");
+    // checking to see if card is matched
+    cardsList.forEach(card => { 
+        if(!card.classList.contains("matched")){
+            card.onclick = function() { turnCard(this); }}});
+        
+    
+    
+    
+    
+    
+}
