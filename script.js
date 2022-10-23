@@ -1,5 +1,4 @@
 // global variables
-let teste = "HEllo World";
 let backImage_src = "./images/parrot.png"
 const deck = document.querySelector(".deck");
 const frontImageSrc = [
@@ -11,6 +10,7 @@ const frontImageSrc = [
     "./images/unicornparrot.gif",
     "./images/fiestaparrot.gif"
 ]
+// array to store 
 let frontImageSrcShuffled = [];
 // prompting the user for the number of cards
 let nCards = Number(prompt("How many cards do you want to play with? Type an even number between 4 and 14"));
@@ -21,6 +21,7 @@ addCards(nCards);
 
 
 
+
 function checkConditions(){
     while((nCards < 4) || (nCards > 14) || (nCards%2 != 0)){            
         nCards =  Number(prompt("Type an even number between 4 and 14"));
@@ -28,8 +29,6 @@ function checkConditions(){
 }
 
 function addCards(nCards){
-    
-    
     cardsLayout(nCards)
     randomCard();
     for(let i = 0; i < nCards; i++){
@@ -37,21 +36,19 @@ function addCards(nCards){
         let card = document.createElement("div");
         let backside = document.createElement("div");
         let frontside = document.createElement("div");
-        let pictureaddr
 
         // adding classes to each element
         card.classList.add("card"); 
         backside.classList.add("backside");
         frontside.classList.add("frontside");
+
         // creating image in the back side && adding source
         backside.appendChild(document.createElement("img"));
         backside.querySelector("img").src = backImage_src;
-        // creating image in the front side && adding source
-        frontside.appendChild(document.createElement("img"));
-        
-        frontside.querySelector("img").src = frontImageSrcShuffled[i];
-        
 
+        // creating image in the front side && adding source
+        frontside.appendChild(document.createElement("img"));        
+        frontside.querySelector("img").src = frontImageSrcShuffled[i];
 
         // appending front and back side to card element
         card.appendChild(frontside);
@@ -60,7 +57,6 @@ function addCards(nCards){
         card.onclick = function() { turnCard(this); };
         // adding card to deck
         deck.appendChild(card);
-
     }
 }
 
@@ -75,10 +71,41 @@ function cardsLayout(nCards){
 }
 
 function turnCard(card){
+    // creating array to store cards
+    let cardsList = document.querySelectorAll(".card");
     let frontside = card.querySelector(".frontside");
     let backside = card.querySelector(".backside");
+    //toggling turn cards    
     frontside.classList.toggle("frontside-turn");
     backside.classList.toggle("backside-turn");
+    //adding selected class to card
+    card.classList.toggle("selected");
+    //checking if there are two cards selected
+    if(document.querySelectorAll(".selected").length == 2){    
+        console.log("two cards selected");
+        //checking if the two cards are the same
+        if(document.querySelectorAll(".selected")[0].querySelector(".frontside").querySelector("img").src == document.querySelectorAll(".selected")[1].querySelector(".frontside").querySelector("img").src){
+            console.log("same cards");
+            //adding matched class to cards
+            document.querySelectorAll(".selected")[0].classList.add("matched");
+            document.querySelectorAll(".selected")[1].classList.add("matched");
+            //removing selected class from cards
+             for(let i = 0; i < cardsList.length; i++){
+                cardsList[i].classList.remove("selected");
+            }
+            //checking if all cards are matched
+            if(document.querySelectorAll(".matched").length == nCards){
+                setTimeout(youWon, 100);
+            }
+
+        }
+        else{
+            console.log("different cards");
+            
+        }
+    }
+    
+    
 }
 
 function randomCard() {
@@ -90,5 +117,9 @@ function randomCard() {
     frontImageSrcShuffled = frontImageSrcShuffled.concat(frontImageSrcShuffled); 
     // randomizing duplicated array
     frontImageSrcShuffled.sort(() => Math.random() -0.5)  
-    
 }
+
+// you won functino to be called when all cards are matched
+function youWon(){
+    alert("YOU WON");
+}   

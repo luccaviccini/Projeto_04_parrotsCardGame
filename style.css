@@ -38,7 +38,7 @@ body {
 }
 
 .card {
-    
+    box-sizing: border-box;
     margin: 17px;
     width:117px;
     height:146px;
@@ -52,10 +52,11 @@ body {
 
 
 .frontside, .backside {
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
-    background-color: #75B79E;
-    border: 1px solid black;
+    background-color: rgba(167, 233, 175, 1);
+    border: 1px solid rgba(153, 206, 168, 1);
     border-radius: 5px;
     display:flex;
     justify-content: center;
@@ -95,4 +96,12 @@ img {
     height: 100px;
     margin-left: 10px;
     margin-right: 7px;
+}
+
+.selected {
+    border: 5px solid rgb(208, 182, 35);
+}
+
+.matched {
+    border: 5px solid rgb(58, 138, 80);
 }
